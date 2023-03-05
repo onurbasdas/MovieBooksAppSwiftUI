@@ -13,12 +13,25 @@ struct MovieListView: View {
     
     init() {
         self.movieListViewModel = MovieListViewModel()
-        self.movieListViewModel.getMovieSearch(movieName: "pulp")
+        self.movieListViewModel.getMovieSearch(movieName: "titanic")
     }
     
     var body: some View {
-        List(movieListViewModel.movies, id: \.imdbId) { movie in
-            Text(movie.title)
+        NavigationView {
+            List(movieListViewModel.movies, id: \.imdbId) { movie in
+                HStack {
+                    SpecialImage(url: movie.poster)
+                        .frame(width: 100, height: 150)
+                    
+                    VStack(alignment: .leading) {
+                        Text(movie.title)
+                            .font(.title3)
+                            .bold()
+                        Text(movie.year)
+                            .foregroundColor(.red)
+                    }
+                }
+            }.navigationTitle("Movie List")
         }
     }
 }
